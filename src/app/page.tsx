@@ -146,7 +146,7 @@ export default function ComingSoon() {
                         {item.value.toString().padStart(2, '0')}
                       </div>
                       <div className="text-[10px] sm:text-xs opacity-90">{item.label}</div>
-               IndentIncrease     </div>
+                    </div>
                   ))}
                 </div>
               </div>
