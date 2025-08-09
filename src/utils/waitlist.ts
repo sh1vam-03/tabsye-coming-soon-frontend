@@ -1,6 +1,12 @@
 // Updated waitlist utility to use backend API instead of Firebase
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
+// Type definition for stored submission entries
+interface StoredSubmission {
+  key: string;
+  timestamp: number;
+}
+
 // Persistent duplicate tracking across page reloads
 class DuplicateTracker {
   private static instance: DuplicateTracker;
@@ -19,10 +25,10 @@ class DuplicateTracker {
     try {
       const stored = localStorage.getItem(this.storageKey);
       if (stored) {
-        const data = JSON.parse(stored);
+        const data: StoredSubmission[] = JSON.parse(stored);
         // Clean up old entries (older than 24 hours)
         const now = Date.now();
-        const validEntries = data.filter((item: any) => 
+        const validEntries = data.filter((item: StoredSubmission) => 
           now - item.timestamp < 24 * 60 * 60 * 1000
         );
         
@@ -31,7 +37,7 @@ class DuplicateTracker {
           localStorage.setItem(this.storageKey, JSON.stringify(validEntries));
         }
         
-        return new Set(validEntries.map((item: any) => item.key));
+        return new Set(validEntries.map((item: StoredSubmission) => item.key));
       }
     } catch (error) {
       console.error('Error reading stored submissions:', error);
@@ -44,7 +50,7 @@ class DuplicateTracker {
     
     try {
       const now = Date.now();
-      const dataToStore = Array.from(submissions).map(key => ({
+      const dataToStore: StoredSubmission[] = Array.from(submissions).map(key => ({
         key,
         timestamp: now
       }));
