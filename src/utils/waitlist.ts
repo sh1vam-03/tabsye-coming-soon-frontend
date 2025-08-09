@@ -1,42 +1,89 @@
 // Updated waitlist utility to use backend API instead of Firebase
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
-console.log('API_BASE_URL:', API_BASE_URL);
+// Persistent duplicate tracking across page reloads
+class DuplicateTracker {
+  private static instance: DuplicateTracker;
+  private storageKey = 'waitlist-submissions';
+  
+  static getInstance(): DuplicateTracker {
+    if (!DuplicateTracker.instance) {
+      DuplicateTracker.instance = new DuplicateTracker();
+    }
+    return DuplicateTracker.instance;
+  }
+  
+  private getStoredSubmissions(): Set<string> {
+    if (typeof window === 'undefined') return new Set();
+    
+    try {
+      const stored = localStorage.getItem(this.storageKey);
+      if (stored) {
+        const data = JSON.parse(stored);
+        // Clean up old entries (older than 24 hours)
+        const now = Date.now();
+        const validEntries = data.filter((item: any) => 
+          now - item.timestamp < 24 * 60 * 60 * 1000
+        );
+        
+        if (validEntries.length !== data.length) {
+          // Update storage with cleaned entries
+          localStorage.setItem(this.storageKey, JSON.stringify(validEntries));
+        }
+        
+        return new Set(validEntries.map((item: any) => item.key));
+      }
+    } catch (error) {
+      console.error('Error reading stored submissions:', error);
+    }
+    return new Set();
+  }
+  
+  private saveSubmissions(submissions: Set<string>) {
+    if (typeof window === 'undefined') return;
+    
+    try {
+      const now = Date.now();
+      const dataToStore = Array.from(submissions).map(key => ({
+        key,
+        timestamp: now
+      }));
+      localStorage.setItem(this.storageKey, JSON.stringify(dataToStore));
+    } catch (error) {
+      console.error('Error saving submissions:', error);
+    }
+  }
+  
+  has(type: string, value: string): boolean {
+    const key = `${type}:${value.trim().toLowerCase()}`;
+    const submissions = this.getStoredSubmissions();
+    return submissions.has(key);
+  }
+  
+  add(type: string, value: string) {
+    const key = `${type}:${value.trim().toLowerCase()}`;
+    const submissions = this.getStoredSubmissions();
+    submissions.add(key);
+    this.saveSubmissions(submissions);
+  }
+}
+
+const duplicateTracker = DuplicateTracker.getInstance();
 
 export async function checkWaitlistExists(type: 'email' | 'mobile', value: string) {
   try {
     console.log(`Checking if ${type} exists:`, value);
-    const apiUrl = `${API_BASE_URL}/api/waitlist/exists?type=${type}&value=${encodeURIComponent(value.trim())}`;
-    console.log('API URL:', apiUrl);
     
-    // Try to fetch from the API
-    try {
-      const response = await fetch(apiUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        // Remove CORS and credentials settings that might cause issues
-        mode: 'cors'
-      });
-      
-      if (!response.ok) {
-        console.error('Error checking waitlist status:', response.statusText);
-        // Return a fallback value
-        return false;
-      }
-      
-      const data = await response.json();
-      console.log('Exists response:', data);
-      return data.exists;
-    } catch (fetchError) {
-      console.error('Fetch error when checking waitlist:', fetchError);
-      // Use fallback value when fetch fails
-      return false;
+    // Check persistent duplicate tracking
+    if (duplicateTracker.has(type, value)) {
+      console.log('Found in persistent duplicate tracker');
+      return true;
     }
+    
+    console.log('No duplicate found in tracker');
+    return false;
   } catch (error) {
     console.error('Error checking waitlist:', error);
-    // Fallback behavior - assume it doesn't exist so user can still submit
     return false;
   }
 }
@@ -44,6 +91,14 @@ export async function checkWaitlistExists(type: 'email' | 'mobile', value: strin
 export async function addToWaitlist(type: 'email' | 'mobile', value: string, firstName?: string, lastName?: string) {
   try {
     console.log('Adding to waitlist:', { type, value, firstName, lastName });
+    
+    // Check if this was already added using persistent tracking
+    if (duplicateTracker.has(type, value)) {
+      throw new Error(`This ${type} has already been added to the waitlist.`);
+    }
+    
+    // Get current count before adding
+    const initialCount = await getWaitlistCount();
     
     // Create payload that matches backend expectations
     const payload = type === 'email' 
@@ -70,13 +125,11 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(payload),
-        // Remove CORS and credentials settings that might cause issues
         mode: 'cors'
       });
       
       if (!response.ok) {
         console.error('Error response:', response.status, response.statusText);
-        console.error('Full response headers:', Object.fromEntries(response.headers));
         
         try {
           const errorData = await response.json();
@@ -92,7 +145,7 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
           }
         } catch (parseError) {
           if (parseError instanceof Error && parseError.message.includes('Server temporarily')) {
-            throw parseError; // Re-throw our custom error
+            throw parseError;
           }
           throw new Error('Failed to add to waitlist: ' + response.statusText);
         }
@@ -101,21 +154,30 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
       try {
         const result = await response.json();
         console.log('Add to waitlist response:', result);
+        
+        if (result.success) {
+          // Check if count actually increased to detect duplicates
+          const newCount = await getWaitlistCount();
+          if (newCount <= initialCount) {
+            // Count didn't increase, likely a duplicate
+            throw new Error(`This ${type} is already registered in the waitlist.`);
+          }
+          
+          // Add to persistent duplicate tracker
+          duplicateTracker.add(type, value);
+        }
+        
         return result;
       } catch (parseError) {
         console.error('Error parsing JSON response:', parseError);
-        // Return a basic success response if JSON parsing fails
-        return { success: true };
+        throw new Error('Server response was invalid. Please try again.');
       }
     } catch (fetchError) {
       console.error('Fetch error when adding to waitlist:', fetchError);
-      // Use a mock response when fetch fails
-      console.log('Using mock success response due to API unavailability');
-      return { success: true, note: "API unavailable, simulating success" };
+      throw new Error('Network error. Please check your connection and try again.');
     }
   } catch (error) {
     console.error('Error adding to waitlist:', error);
-    // We need to throw the error so the UI can show the failure
     throw error;
   }
 }

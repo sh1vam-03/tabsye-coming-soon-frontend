@@ -73,7 +73,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
           if (exists) {
             setStatus("error");
             setStatusMessage("This email is already registered for the waitlist.");
-            throw new Error("This email is already registered for the waitlist.");
+            return; // Exit early instead of throwing error
           }
           
           console.log("Adding to waitlist with email:", email);
@@ -118,7 +118,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
           if (exists) {
             setStatus("error");
             setStatusMessage("This mobile number is already registered for the waitlist.");
-            throw new Error("This mobile number is already registered for the waitlist.");
+            return; // Exit early instead of throwing error
           }
           
           console.log("Adding to waitlist with mobile:", mobile);

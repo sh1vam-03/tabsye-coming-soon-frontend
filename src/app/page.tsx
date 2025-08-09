@@ -35,16 +35,24 @@ export default function ComingSoon() {
     return { days, hours, minutes, seconds };
   }
 
-  const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [isClient, setIsClient] = useState(false);
 
+  // Prevent hydration mismatch - only show actual countdown on client
+  useEffect(() => {
+    setIsClient(true);
+    setTimeLeft(getTimeLeft());
+  }, []);
 
   // Countdown timer
   useEffect(() => {
+    if (!isClient) return;
+    
     const timer = setInterval(() => {
       setTimeLeft(getTimeLeft());
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [isClient]);
 
   // Fetch subscriber count from API
   useEffect(() => {
