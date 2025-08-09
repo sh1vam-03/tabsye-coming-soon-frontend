@@ -1,10 +1,8 @@
 "use client";
 import { useState, useEffect } from "react";
-import { app } from "@/firebase";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Image from "next/image";
-import { Bell, Clock, Mail, Sparkles, Rocket, Star, Phone, Users, Zap, Shield, Heart, ChefHat, CalendarDays, Timer, Gift } from "lucide-react";
+import { Bell, Clock, Sparkles, Rocket, Star, Users, Zap, Shield, Heart, ChefHat, CalendarDays, Timer, Gift } from "lucide-react";
 import Link from "next/link";
 import NotificationModal from '@/components/NotificationModal';
 import { getWaitlistCount } from '@/utils/waitlist';
@@ -21,7 +19,7 @@ export default function ComingSoon() {
 
   // Countdown timer
   function getTimeLeft() {
-    const target = new Date('2025-12-01T00:00:00+05:30'); // IST
+    const target = new Date('2026-02-01T00:00:00+05:30'); // IST
     const now = new Date();
     const diff = target.getTime() - now.getTime();
     
@@ -61,36 +59,6 @@ export default function ComingSoon() {
     }
     fetchSubscriberCount();
   }, []);
-
-  const handleNotifySubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setError(null);
-
-    try {
-      if (notificationType === 'email') {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!email.trim()) throw new Error("Email address is required.");
-        if (!emailPattern.test(email)) throw new Error("Enter a valid email address.");
-      } else {
-        const mobilePattern = /^[6-9]\d{9}$/;
-        if (!mobile.trim()) throw new Error("Mobile number is required.");
-        if (!mobilePattern.test(mobile)) throw new Error("Enter a valid 10-digit Indian mobile number.");
-      }
-      
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setIsSubscribed(true);
-      setEmail('');
-      setMobile('');
-      setSubscriberCount(prev => (typeof prev === 'number' ? prev + 1 : 1));
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Something went wrong");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-orange-50 to-amber-50">
@@ -145,7 +113,7 @@ export default function ComingSoon() {
               </h1>
               
               <p className="text-base sm:text-lg text-gray-600 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                We're building something revolutionary for restaurants and hotels.
+                We&apos;re building something revolutionary for restaurants and hotels.
                 Get ready for a smarter way to manage your hospitality business.
               </p>
 
@@ -153,7 +121,7 @@ export default function ComingSoon() {
               <div className="mb-8 sm:mb-10">
                 <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 text-orange-600">
                   <Clock className="w-4 h-4 sm:w-5 sm:h-5" />
-                  <span className="text-sm sm:text-base font-medium">Launching on 1 Dec 2025</span>
+                  <span className="text-sm sm:text-base font-medium">Launching this Winter – Between Dec 2025 & Feb 2026</span>
                 </div>
                 
                 <div className="grid grid-cols-4 gap-2 sm:gap-3 max-w-xs sm:max-w-md mx-auto">
@@ -185,7 +153,7 @@ export default function ComingSoon() {
 
               {isSubscribed && (
                 <div className="bg-green-50 text-green-700 p-2.5 sm:p-3 rounded-lg max-w-md mx-auto mb-4 sm:mb-6 text-sm sm:text-base">
-                  Thank you! We'll notify you when we launch.
+                  Thank you! We&apos;ll notify you when we launch.
                 </div>
               )}
             </div>
@@ -246,7 +214,7 @@ export default function ComingSoon() {
               
               <div className="p-4 sm:p-6">
                 <p className="text-sm sm:text-base text-gray-600 text-center mb-6 max-w-lg mx-auto">
-                  We're revolutionizing how restaurants and hotels operate with intuitive technology designed for the modern hospitality industry
+                  We&apos;re revolutionizing how restaurants and hotels operate with intuitive technology designed for the modern hospitality industry
                 </p>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">

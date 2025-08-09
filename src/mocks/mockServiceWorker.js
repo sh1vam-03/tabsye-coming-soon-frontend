@@ -55,7 +55,7 @@ if (typeof window !== 'undefined') {
     console.log('Passing through to real fetch');
     try {
       return await originalFetch(url, options);
-    } catch (error) {
+    } catch {
       // If the real fetch fails, return a mock error response
       console.error('Real fetch failed, returning mock error response');
       return {

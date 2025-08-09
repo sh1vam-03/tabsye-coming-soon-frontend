@@ -1,15 +1,6 @@
 // Updated waitlist utility to use backend API instead of Firebase
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 
-// Function to create a mock response when the API is unavailable
-function createMockResponse(data: any) {
-  return {
-    ok: true,
-    status: 200,
-    json: async () => data
-  } as Response;
-}
-
 export async function checkWaitlistExists(type: 'email' | 'mobile', value: string) {
   try {
     console.log(`Checking if ${type} exists:`, value);
@@ -78,7 +69,7 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
         try {
           const errorData = await response.json();
           throw new Error(errorData.error || 'Failed to add to waitlist');
-        } catch (jsonError) {
+        } catch {
           throw new Error('Failed to add to waitlist: ' + response.statusText);
         }
       }
@@ -87,8 +78,8 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
         const result = await response.json();
         console.log('Add to waitlist response:', result);
         return result;
-      } catch (jsonError) {
-        console.error('Error parsing JSON response:', jsonError);
+      } catch (parseError) {
+        console.error('Error parsing JSON response:', parseError);
         // Return a basic success response if JSON parsing fails
         return { success: true };
       }
