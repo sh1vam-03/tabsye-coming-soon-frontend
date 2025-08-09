@@ -1,10 +1,10 @@
 // Updated waitlist utility to use backend API instead of Firebase
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
 export async function checkWaitlistExists(type: 'email' | 'mobile', value: string) {
   try {
     console.log(`Checking if ${type} exists:`, value);
-    const apiUrl = `${API_BASE_URL}/waitlist/exists?type=${type}&value=${encodeURIComponent(value.trim())}`;
+    const apiUrl = `${API_BASE_URL}/api/waitlist/exists?type=${type}&value=${encodeURIComponent(value.trim())}`;
     console.log('API URL:', apiUrl);
     
     // Try to fetch from the API
@@ -43,18 +43,24 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
   try {
     console.log('Adding to waitlist:', { type, value, firstName, lastName });
     
-    const payload = {
-      type,
-      [type]: value.trim(),
-      firstName: firstName ? firstName.trim() : '',
-      lastName: lastName ? lastName.trim() : '',
-    };
+    // Create payload that matches backend expectations
+    const payload = type === 'email' 
+      ? {
+          email: value.trim(),
+          firstName: firstName ? firstName.trim() : '',
+          lastName: lastName ? lastName.trim() : '',
+        }
+      : {
+          mobile: value.trim(),
+          firstName: firstName ? firstName.trim() : '',
+          lastName: lastName ? lastName.trim() : '',
+        };
     
     console.log('Request payload:', payload);
     
     // Try to add to the API
     try {
-      const response = await fetch(`${API_BASE_URL}/waitlist/add`, {
+      const response = await fetch(`${API_BASE_URL}/api/waitlist/add`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -68,7 +74,8 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
         console.error('Error response:', response.status, response.statusText);
         try {
           const errorData = await response.json();
-          throw new Error(errorData.error || 'Failed to add to waitlist');
+          console.log('Error details:', errorData);
+          throw new Error(errorData.error || errorData.message || 'Failed to add to waitlist');
         } catch {
           throw new Error('Failed to add to waitlist: ' + response.statusText);
         }
@@ -102,7 +109,7 @@ export async function getWaitlistCount() {
     
     // Try to get the count from the API
     try {
-      const response = await fetch(`${API_BASE_URL}/waitlist/count`, {
+      const response = await fetch(`${API_BASE_URL}/api/waitlist/count`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
