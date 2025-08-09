@@ -1,12 +1,12 @@
-# Node modules
+# Dependencies
 node_modules/
 
-# Build outputclear
+# Build output
 .next/
 out/
 dist/
 
-# Local env files
+# Environment files
 .env*
 
 # OS files
@@ -28,10 +28,3 @@ coverage/
 
 # Misc
 *.local
-
-# Dependencies
-node_modules/
-
-
-# Environment files
-.env
