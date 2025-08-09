@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Bell, Clock, Sparkles, Rocket, Star, Users, Zap, Shield, Heart, ChefHat, CalendarDays, Timer, Gift } from "lucide-react";
+import { Bell, Clock, Sparkles, Monitor, IndentIncrease, Eye, Rocket, Star, Users, Zap, Shield, Heart, ChefHat, CalendarDays, Timer, Gift } from "lucide-react";
 import Link from "next/link";
 import NotificationModal from '@/components/NotificationModal';
 import { getWaitlistCount } from '@/utils/waitlist';
@@ -18,7 +18,7 @@ export default function ComingSoon() {
   const [showNotifyModal, setShowNotifyModal] = useState(false);
 
   // Countdown timer
-  function getTimeLeft() {
+  function getTimeLeft() {IndentIncrease
     const target = new Date('2026-02-01T00:00:00+05:30'); // IST
     const now = new Date();
     const diff = target.getTime() - now.getTime();
@@ -111,7 +111,7 @@ export default function ComingSoon() {
               <div className="mb-6 sm:mb-8 flex justify-center">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <ChefHat className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600" />
-                  <span className="text-xl sm:text-2xl font-bold text-orange-800">RestroTech</span>
+                  <span className="text-xl sm:text-2xl font-bold text-orange-800">TABSYE</span>
                 </div>
               </div>
 
@@ -146,7 +146,7 @@ export default function ComingSoon() {
                         {item.value.toString().padStart(2, '0')}
                       </div>
                       <div className="text-[10px] sm:text-xs opacity-90">{item.label}</div>
-                    </div>
+               IndentIncrease     </div>
                   ))}
                 </div>
               </div>
@@ -232,7 +232,7 @@ export default function ComingSoon() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                   <div className="bg-white/80 p-4 rounded-lg shadow-sm flex flex-col items-center text-center transform transition-all hover:scale-105">
                     <div className="bg-gradient-to-br from-[#FF7D00] to-orange-400 p-3 rounded-full mb-3 text-white">
-                      <Rocket className="w-5 h-5" />
+                      <Monitor className="w-5 h-5" />
                     </div>
                     <h4 className="font-semibold text-orange-800 mb-2">Get Your Website</h4>
                     <p className="text-xs sm:text-sm text-gray-600">Launch a professional, mobile-friendly website tailored to your business</p>
@@ -240,7 +240,7 @@ export default function ComingSoon() {
                   
                   <div className="bg-white/80 p-4 rounded-lg shadow-sm flex flex-col items-center text-center transform transition-all hover:scale-105">
                     <div className="bg-gradient-to-br from-[#FF7D00] to-orange-400 p-3 rounded-full mb-3 text-white">
-                      <Heart className="w-5 h-5" />
+                      <Eye className="w-5 h-5" />
                     </div>
                     <h4 className="font-semibold text-orange-800 mb-2">Make Online Visibility</h4>
                     <p className="text-xs sm:text-sm text-gray-600">Enhance your brand presence and attract more customers</p>
@@ -248,7 +248,7 @@ export default function ComingSoon() {
                   
                   <div className="bg-white/80 p-4 rounded-lg shadow-sm flex flex-col items-center text-center transform transition-all hover:scale-105">
                     <div className="bg-gradient-to-br from-[#FF7D00] to-orange-400 p-3 rounded-full mb-3 text-white">
-                      <Star className="w-5 h-5" />
+                      <IndentIncrease className="w-5 h-5" />
                     </div>
                     <h4 className="font-semibold text-orange-800 mb-2">Grow Your Reach</h4>
                     <p className="text-xs sm:text-sm text-gray-600">Connect with more customers and expand your market effortlessly</p>
