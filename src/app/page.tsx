@@ -50,7 +50,9 @@ export default function ComingSoon() {
   useEffect(() => {
     async function fetchSubscriberCount() {
       try {
+        console.log('Fetching subscriber count...');
         const count = await getWaitlistCount();
+        console.log('Subscriber count received:', count);
         setSubscriberCount(count);
       } catch (err) {
         console.error("Error fetching subscriber count:", err);

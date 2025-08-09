@@ -1,6 +1,8 @@
 // Updated waitlist utility to use backend API instead of Firebase
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
 
+console.log('API_BASE_URL:', API_BASE_URL);
+
 export async function checkWaitlistExists(type: 'email' | 'mobile', value: string) {
   try {
     console.log(`Checking if ${type} exists:`, value);
