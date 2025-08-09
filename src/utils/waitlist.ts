@@ -48,11 +48,13 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
     // Create payload that matches backend expectations
     const payload = type === 'email' 
       ? {
+          type: 'email',
           email: value.trim(),
           firstName: firstName ? firstName.trim() : '',
           lastName: lastName ? lastName.trim() : '',
         }
       : {
+          type: 'mobile',
           mobile: value.trim(),
           firstName: firstName ? firstName.trim() : '',
           lastName: lastName ? lastName.trim() : '',
@@ -74,11 +76,24 @@ export async function addToWaitlist(type: 'email' | 'mobile', value: string, fir
       
       if (!response.ok) {
         console.error('Error response:', response.status, response.statusText);
+        console.error('Full response headers:', Object.fromEntries(response.headers));
+        
         try {
           const errorData = await response.json();
           console.log('Error details:', errorData);
-          throw new Error(errorData.error || errorData.message || 'Failed to add to waitlist');
-        } catch {
+          
+          // Handle specific backend errors
+          if (response.status === 500) {
+            throw new Error('Server temporarily unavailable. Please try again later.');
+          } else if (response.status === 400) {
+            throw new Error(errorData.error || errorData.message || 'Invalid request data');
+          } else {
+            throw new Error(errorData.error || errorData.message || 'Failed to add to waitlist');
+          }
+        } catch (parseError) {
+          if (parseError instanceof Error && parseError.message.includes('Server temporarily')) {
+            throw parseError; // Re-throw our custom error
+          }
           throw new Error('Failed to add to waitlist: ' + response.statusText);
         }
       }
