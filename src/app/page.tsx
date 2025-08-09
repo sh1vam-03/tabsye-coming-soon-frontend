@@ -227,7 +227,36 @@ export default function ComingSoon() {
                   We&apos;re revolutionizing how restaurants and hotels operate with intuitive technology designed for the modern hospitality industry
                 </p>
                 
+                {/* Fisrt 3 card  */}
+
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                  <div className="bg-white/80 p-4 rounded-lg shadow-sm flex flex-col items-center text-center transform transition-all hover:scale-105">
+                    <div className="bg-gradient-to-br from-[#FF7D00] to-orange-400 p-3 rounded-full mb-3 text-white">
+                      <Rocket className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-semibold text-orange-800 mb-2">Get Your Website</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">Launch a professional, mobile-friendly website tailored to your business</p>
+                  </div>
+                  
+                  <div className="bg-white/80 p-4 rounded-lg shadow-sm flex flex-col items-center text-center transform transition-all hover:scale-105">
+                    <div className="bg-gradient-to-br from-[#FF7D00] to-orange-400 p-3 rounded-full mb-3 text-white">
+                      <Heart className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-semibold text-orange-800 mb-2">Make Online Visibility</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">Enhance your brand presence and attract more customers</p>
+                  </div>
+                  
+                  <div className="bg-white/80 p-4 rounded-lg shadow-sm flex flex-col items-center text-center transform transition-all hover:scale-105">
+                    <div className="bg-gradient-to-br from-[#FF7D00] to-orange-400 p-3 rounded-full mb-3 text-white">
+                      <Star className="w-5 h-5" />
+                    </div>
+                    <h4 className="font-semibold text-orange-800 mb-2">Grow Your Reach</h4>
+                    <p className="text-xs sm:text-sm text-gray-600">Connect with more customers and expand your market effortlessly</p>
+                  </div>
+                </div>
+                
+                {/* Second 3 Card  */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
                   <div className="bg-white/80 p-4 rounded-lg shadow-sm flex flex-col items-center text-center transform transition-all hover:scale-105">
                     <div className="bg-gradient-to-br from-[#FF7D00] to-orange-400 p-3 rounded-full mb-3 text-white">
                       <Rocket className="w-5 h-5" />
@@ -252,7 +281,8 @@ export default function ComingSoon() {
                     <p className="text-xs sm:text-sm text-gray-600">User-friendly interface requiring minimal training for your staff</p>
                   </div>
                 </div>
-                
+
+
                 {/* How to Start Steps */}
                 <div className="bg-white/90 backdrop-blur-sm rounded-xl p-5 border border-orange-100">
                   <h4 className="text-center font-semibold text-orange-800 mb-5 text-lg">Getting Started is Easy</h4>
@@ -289,9 +319,9 @@ export default function ComingSoon() {
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-5">
                   {[
                     { icon: <Bell className="w-5 h-5" />, label: "Smart Alerts" },
-                    { icon: <ChefHat className="w-5 h-5" />, label: "Kitchen Hub" },
+                    { icon: <ChefHat className="w-5 h-5" />, label: "Online Visibility" },
                     { icon: <Users className="w-5 h-5" />, label: "User Friendly" },
-                    { icon: <Gift className="w-5 h-5" />, label: "Loyalty System" }
+                    { icon: <Gift className="w-5 h-5" />, label: "Free Website" }
                   ].map((feature, index) => (
                     <div key={index} className="flex flex-col items-center text-center">
                       <div className="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 mb-2">
