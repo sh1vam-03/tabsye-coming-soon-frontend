@@ -200,16 +200,16 @@ export default function ComingSoon() {
                 <div className="bg-orange-50 p-2 sm:p-3 rounded-lg">
                   <div className="flex items-center gap-2 mb-1 text-orange-700">
                     <Shield className="w-4 h-4" />
-                    <span className="font-medium">Smart Solutions</span>
+                    <span className="font-medium">Launch Your Website</span>
                   </div>
-                  <p className="text-gray-600">Intelligent tools designed specifically for the hospitality industry</p>
+                  <p className="text-gray-600">Start Your Online Journey – Engage Customers & Boost Professionalism </p>
                 </div>
                 <div className="bg-orange-50 p-2 sm:p-3 rounded-lg">
                   <div className="flex items-center gap-2 mb-1 text-orange-700">
                     <Users className="w-4 h-4" />
                     <span className="font-medium">Seamless Experience</span>
                   </div>
-                  <p className="text-gray-600">A unified platform for both staff and customers</p>
+                  <p className="text-gray-600">A unified platform for both owners and customers</p>
                 </div>
               </div>
             </div>
