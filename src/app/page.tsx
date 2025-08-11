@@ -111,7 +111,7 @@ export default function ComingSoon() {
               <div className="mb-6 sm:mb-8 flex justify-center">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <ChefHat className="w-6 h-6 sm:w-8 sm:h-8 text-orange-600" />
-                  <span className="text-xl sm:text-2xl font-bold text-orange-800">TABSYE</span>
+                  <span className="text-xl sm:text-2xl font-bold text-orange-800"><h1>TABSYE</h1></span>
                 </div>
               </div>
 
