@@ -4,8 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
+import ComingSoonCard from './ComingSoonCard';
+import { useState } from 'react';
 
 export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => void }) {
+    const [showComingSoon, setShowComingSoon] = useState(false);
+
 
   const FooterLink = ({ children, href }: { children: React.ReactNode; href?: string }) => (
     <li>
@@ -61,29 +65,30 @@ export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => voi
             <div>
               <h4 className="font-semibold mb-5 text-white tracking-wider">About</h4>
               <ul className="space-y-4 text-sm">
-                <FooterLink>About Us</FooterLink>
-                <FooterLink>Careers</FooterLink>
-                <FooterLink href="https://blog.tabsye.com">Blog</FooterLink>
-                <FooterLink>Contact Us</FooterLink>
+                <button key={"About Us"}
+                onClick={() => setShowComingSoon(true)}>About Us</button>
+                <button key={"Careers"} onClick={() => setShowComingSoon(true)}>Careers</button>
+                <button key={"Blog"} onClick={() => setShowComingSoon(true)}>Blog</button>
+                <button key={"Contact Us"} onClick={() => setShowComingSoon(true)}>Contact Us</button>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-5 text-white tracking-wider">For Restaurants</h4>
               <ul className="space-y-4 text-sm">
-                <FooterLink>Register</FooterLink>
-                <FooterLink>Terms & Conditions</FooterLink>
-                <FooterLink>Privacy Policy</FooterLink>
+                <button key={"Register"} onClick={() => setShowComingSoon(true)}>Register</button>
+                <button key={"Terms & Conditions"} onClick={() => setShowComingSoon(true)}>Terms & Conditions</button>
+                <button key={"Privacy Policy"} onClick={() => setShowComingSoon(true)}>Privacy Policy</button>
               </ul>
             </div>
 
             <div>
               <h4 className="font-semibold mb-5 text-white tracking-wider">For You</h4>
               <ul className="space-y-4 text-sm">
-                <FooterLink>Privacy Policy</FooterLink>
-                <FooterLink>Terms of Use</FooterLink>
-                <FooterLink>Report Fraud</FooterLink>
-                <FooterLink>Apps</FooterLink>
+                <button key={"Report Fraud"} onClick={() => setShowComingSoon(true)}>Report Fraud</button>
+                <button key={"Terms of Use"} onClick={() => setShowComingSoon(true)}>Terms of Use</button>
+                <button key={"Privacy Policy"} onClick={() => setShowComingSoon(true)}>Privacy Policy</button>
+                <button key={"Apps"} onClick={() => setShowComingSoon(true)}>Apps</button>
               </ul>
             </div>
           </div>
@@ -91,7 +96,7 @@ export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => voi
           {/* Bottom Bar */}
           <div className="py-6 border-t border-white/10 text-center">
             <p className="text-xs text-gray-500">
-              &copy; {new Date().getFullYear()} Tabsye Technologies Pvt. Ltd. All Rights Reserved.
+              &copy; {new Date().getFullYear()} Tabsye All Rights Reserved.
             </p>
           </div>
 
