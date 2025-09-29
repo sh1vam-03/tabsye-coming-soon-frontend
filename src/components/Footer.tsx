@@ -5,10 +5,15 @@ import Link from 'next/link';
 import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
+import { useState, useEffect } from 'react';
 
 export default function Footer({ onWaitlistClick, onLinkClick }: { onWaitlistClick: () => void, onLinkClick: () => void }) {
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const FooterLink = ({ children, href }: { children: React.ReactNode; href?: string }) => (
     <li>
@@ -23,6 +28,8 @@ export default function Footer({ onWaitlistClick, onLinkClick }: { onWaitlistCli
       )}
     </li>
   );
+
+  const logoPlaceholder = <div style={{ width: 120, height: 30 }} />;
 
   return (
     <>
@@ -45,12 +52,16 @@ export default function Footer({ onWaitlistClick, onLinkClick }: { onWaitlistCli
             
             <div className="col-span-2 sm:col-span-2 md:col-span-1 flex flex-col items-center text-center">
               <Link href="/" className="inline-block mb-4">
-                <Image 
-                  src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
-                  alt="Tabsye Logo" 
-                  width={120} 
-                  height={30} 
-                />
+                {mounted ? (
+                  <Image 
+                    src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
+                    alt="Tabsye Logo" 
+                    width={120} 
+                    height={30} 
+                  />
+                ) : (
+                  logoPlaceholder
+                )}
               </Link>
               <div className="flex items-center gap-5 mb-4">
                 <a href="https://www.instagram.com/tabsye_official" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-transform hover:scale-110">

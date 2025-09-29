@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useTheme } from "next-themes";
@@ -9,8 +9,16 @@ import { useTheme } from "next-themes";
 export default function Header({ onWaitlistClick, onLinkClick }: { onWaitlistClick: () => void, onLinkClick: () => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const navLinks = ["About Us", "Contact Us", "Report a Fraud", "Blog"];
+
+  const logoPlaceholder = <div style={{ width: 120, height: 30 }} />;
+  const mobileLogoPlaceholder = <div style={{ width: 100, height: 24 }} />;
 
   return (
     <>
@@ -25,13 +33,17 @@ export default function Header({ onWaitlistClick, onLinkClick }: { onWaitlistCli
           </button>
           <div className="absolute left-1/2 transform -translate-x-1/2">
             <Link href="/">
-              <Image
-                src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
-                alt="Tabsye Logo"
-                width={100}
-                height={24}
-                className="h-6 w-auto"
-              />
+              {mounted ? (
+                <Image
+                  src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
+                  alt="Tabsye Logo"
+                  width={100}
+                  height={24}
+                  className="h-6 w-auto"
+                />
+              ) : (
+                mobileLogoPlaceholder
+              )}
             </Link>
           </div>
           <div className="z-20">
@@ -43,13 +55,17 @@ export default function Header({ onWaitlistClick, onLinkClick }: { onWaitlistCli
         <div className="hidden sm:flex items-center">
           <div className="flex-1 flex items-center">
             <Link href="/">
-              <Image
-                src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
-                alt="Tabsye Logo"
-                width={120}
-                height={30}
-                className="h-7 w-auto"
-              />
+              {mounted ? (
+                <Image
+                  src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
+                  alt="Tabsye Logo"
+                  width={120}
+                  height={30}
+                  className="h-7 w-auto"
+                />
+              ) : (
+                logoPlaceholder
+              )}
             </Link>
           </div>
           
@@ -89,13 +105,17 @@ export default function Header({ onWaitlistClick, onLinkClick }: { onWaitlistCli
             </button>
             <div className="flex justify-center mb-8">
               <Link href="/">
-                <Image
-                  src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
-                  alt="Tabsye Logo"
-                  width={120}
-                  height={30}
-                  className="h-6 w-auto"
-                />
+                {mounted ? (
+                  <Image
+                    src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
+                    alt="Tabsye Logo"
+                    width={120}
+                    height={30}
+                    className="h-6 w-auto"
+                  />
+                ) : (
+                  logoPlaceholder
+                )}
               </Link>
             </div>
             <nav className="flex flex-col gap-5 text-center">
