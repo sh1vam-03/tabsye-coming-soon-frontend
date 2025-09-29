@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { Mail, Phone, X } from "lucide-react";
+import { useTheme } from "next-themes";
 
 import { checkWaitlistExists, addToWaitlist } from "../utils/waitlist";
 import WaitlistStatus from "./WaitlistStatus";
@@ -44,6 +45,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
   const [statusMessage, setStatusMessage] = React.useState("");
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
+  const { resolvedTheme } = useTheme();
 
   if (!open) return null;
 
@@ -90,7 +92,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
     setStatus("idle");
     setStatusMessage("");
     setError(null);
-    if(status === 'success') onClose(); // Close main modal only on success
+    if(status === 'success') onClose();
   };
   
   return (
@@ -101,30 +103,30 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
         role="presentation"
       >
         <div
-          className="bg-gray-900/50 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md m-4 sm:m-0 animate-slideUp sm:animate-fadeIn"
+          className="bg-white dark:bg-gray-900/50 backdrop-blur-2xl border border-gray-200 dark:border-white/10 rounded-2xl shadow-2xl p-6 sm:p-8 w-full max-w-md m-4 sm:m-0 animate-slideUp sm:animate-fadeIn"
           onClick={e => e.stopPropagation()}
         >
-           <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-white transition-colors">
+           <button onClick={onClose} className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 dark:hover:text-white transition-colors">
               <X size={24} />
             </button>
 
           <div className="flex justify-center mb-5">
-             <Image src="/w_logo.svg" alt="Tabsye Logo" width={100} height={30} />
+             <Image src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"} alt="Tabsye Logo" width={100} height={30} />
           </div>
-          <h3 className="text-xl font-semibold text-white mb-6 text-center">
+          <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 text-center">
             Be the First to Know
           </h3>
           
-          <div className="flex mb-6 bg-gray-800/60 rounded-lg p-1">
+          <div className="flex mb-6 bg-gray-100 dark:bg-gray-800/60 rounded-lg p-1">
             <button
               onClick={() => setNotificationType('mobile')}
-              className={`w-full py-2 rounded-md transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 ${notificationType === 'mobile' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' : 'text-gray-400 hover:bg-gray-700/50'}`}>
+              className={`w-full py-2 rounded-md transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 ${notificationType === 'mobile' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700/50'}`}>
                 <Phone size={16} />
                 Mobile
             </button>
             <button
               onClick={() => setNotificationType('email')}
-              className={`w-full py-2 rounded-md transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 ${notificationType === 'email' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' : 'text-gray-400 hover:bg-gray-700/50'}`}>
+              className={`w-full py-2 rounded-md transition-all duration-300 text-sm font-medium flex items-center justify-center gap-2 ${notificationType === 'email' ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-md' : 'text-gray-500 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700/50'}`}>
               <Mail size={16} />
               Email
             </button>
@@ -132,24 +134,24 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
 
           <form onSubmit={handleNotifySubmit} className="space-y-4">
             <div className="flex flex-col sm:flex-row gap-4">
-              <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First Name" className="w-full px-4 py-2.5 border border-gray-700 rounded-lg bg-gray-800/60 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" autoComplete="given-name" disabled={isSubmitting} />
-              <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Last Name" className="w-full px-4 py-2.5 border border-gray-700 rounded-lg bg-gray-800/60 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" autoComplete="family-name" disabled={isSubmitting} />
+              <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First Name" className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/60 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" autoComplete="given-name" disabled={isSubmitting} />
+              <input type="text" value={lastName} onChange={e => setLastName(e.target.value)} placeholder="Last Name" className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/60 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" autoComplete="family-name" disabled={isSubmitting} />
             </div>
 
             {notificationType === 'mobile' ? (
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 select-none">+91</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-400 select-none">+91</span>
                 <input type="tel" value={mobile} onChange={e => {
                     const val = e.target.value.replace(/\D/g, '');
                     if (val.length <= 10) setMobile(val);
-                  }} placeholder="Enter mobile number" className="w-full pl-12 pr-4 py-2.5 border border-gray-700 rounded-lg bg-gray-800/60 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" maxLength={10} inputMode="numeric" disabled={isSubmitting} />
+                  }} placeholder="Enter mobile number" className="w-full pl-12 pr-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/60 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" maxLength={10} inputMode="numeric" disabled={isSubmitting} />
               </div>
             ) : (
-              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your.email@example.com" className="w-full px-4 py-2.5 border border-gray-700 rounded-lg bg-gray-800/60 text-white placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" disabled={isSubmitting} />
+              <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="your.email@example.com" className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-800/60 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" disabled={isSubmitting} />
             )}
 
             {error && (
-              <div className="p-3 text-sm text-red-300 bg-red-900/40 rounded-lg border border-red-500/30">
+              <div className="p-3 text-sm text-red-700 dark:text-red-300 bg-red-100 dark:bg-red-900/40 rounded-lg border border-red-300 dark:border-red-500/30">
                 {error}
               </div>
             )}
@@ -170,7 +172,7 @@ const NotificationModal: React.FC<NotificationModalProps> = ({
             </button>
           </form>
           
-          <p className="text-center text-xs mt-5 text-gray-500">
+          <p className="text-center text-xs mt-5 text-gray-500 dark:text-gray-500">
             Join the waitlist to get exclusive early access and updates.
           </p>
         </div>
