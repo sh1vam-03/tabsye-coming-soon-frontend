@@ -43,7 +43,7 @@ export default function Footer({ onWaitlistClick, onLinkClick }: { onWaitlistCli
 
           <div className="py-16 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10">
             
-            <div className="col-span-2 sm:col-span-2 md:col-span-1 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <div className="col-span-2 sm:col-span-2 md:col-span-1 flex flex-col items-center text-center">
               <Link href="/" className="inline-block mb-4">
                 <Image 
                   src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
