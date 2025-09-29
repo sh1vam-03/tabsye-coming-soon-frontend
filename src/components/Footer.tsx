@@ -1,126 +1,102 @@
-import { useState } from "react";
-import Image from "next/image";
-import ComingSoonCard from "./ComingSoonCard";
-import { FaLinkedin, FaInstagram } from "react-icons/fa";
+'use client';
 
-export default function Footer() {
-  const [showComingSoon, setShowComingSoon] = useState(false);
+import Image from 'next/image';
+import Link from 'next/link';
+import { FaLinkedin, FaInstagram } from 'react-icons/fa';
+import { ArrowRight } from 'lucide-react';
+
+export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => void }) {
+
+  const FooterLink = ({ children, href }: { children: React.ReactNode; href?: string }) => (
+    <li>
+      {href ? (
+        <a href={href} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300">
+          {children}
+        </a>
+      ) : (
+        <button onClick={onWaitlistClick} className="hover:text-white transition-colors duration-300 text-left w-full">
+          {children}
+        </button>
+      )}
+    </li>
+  );
+
   return (
-    <footer className="bg-gray-100 text-sm border-t text-gray-700 mt-10">
-      <div className="max-w-7xl mx-auto px-4 py-10">
-
-
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {/* Tabsye Logo & Language (All screens) */}
-          <div className="flex flex-col items-center justify-center h-full text-center">
-            <Image
-              src="/logo.svg"
-              alt="Tabsye Logo"
-              width={120}
-              height={40}
-              className="mb-2"
-            />
-            <p className="text-xs text-gray-500 text-center mt-2">
-              Proudly Made with ❤️ in{' '}
-              <span className="font-outfit font-semibold text-gray-700">
-                Bharat
-              </span>
-            </p>
-            <div className="flex gap-3 mt-4 justify-center">
-              <a
-                href="https://www.instagram.com/tabsye_official"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="hover:scale-110 transition-transform text-gray-500 hover:text-orange-500"
+    <>
+      <footer className="bg-black/50 backdrop-blur-2xl text-gray-400 border-t border-white/10 mt-32 font-sans">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          
+          {/* CTA Section */}
+          <div className="py-12 border-b border-white/10 flex flex-col lg:flex-row justify-between items-center gap-6 text-center lg:text-left">
+              <h3 className="text-xl md:text-2xl font-medium text-white max-w-lg">
+                  A new era of dining is on the horizon. Be the first to know.
+              </h3>
+              <button
+                onClick={onWaitlistClick}
+                className="bg-white/10 border border-white/20 rounded-lg px-5 py-3 text-sm text-white flex items-center justify-center gap-2 hover:bg-white/20 transition-all duration-300 group shrink-0"
               >
-                <FaInstagram className="w-4 h-4" />
-              </a>
-              <a
-                href="https://www.linkedin.com/company/tabsye"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="hover:scale-110 transition-transform text-gray-500 hover:text-orange-500"
-              >
-                <FaLinkedin className="w-4 h-4" />
-              </a>
+                Join The Waitlist <ArrowRight size={16} className="transform group-hover:translate-x-1 transition-transform"/>
+              </button>
+          </div>
+
+          <div className="py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+            
+            <div className="sm:col-span-2 md:col-span-1 flex flex-col items-center sm:items-start text-center sm:text-left">
+              <Link href="/" className="inline-block mb-4">
+                <Image src="/w_logo.svg" alt="Tabsye Logo" width={120} height={30} />
+              </Link>
+              <div className="flex items-center gap-5 mb-4">
+                <a href="https://www.instagram.com/tabsye_official" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-gray-400 hover:text-white transition-transform hover:scale-110">
+                  <FaInstagram size={20} />
+                </a>
+                <a href="https://www.linkedin.com/company/tabsye" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-gray-400 hover:text-white transition-transform hover:scale-110">
+                  <FaLinkedin size={20} />
+                </a>
+              </div>
+               <p className="text-xs text-gray-500">
+                Proudly Made with ❤️ in <span className="font-medium text-gray-400">Bharat</span>
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-5 text-white tracking-wider">About</h4>
+              <ul className="space-y-4 text-sm">
+                <FooterLink>About Us</FooterLink>
+                <FooterLink>Careers</FooterLink>
+                <FooterLink href="https://blog.tabsye.com">Blog</FooterLink>
+                <FooterLink>Contact Us</FooterLink>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-5 text-white tracking-wider">For Restaurants</h4>
+              <ul className="space-y-4 text-sm">
+                <FooterLink>Register</FooterLink>
+                <FooterLink>Terms & Conditions</FooterLink>
+                <FooterLink>Privacy Policy</FooterLink>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-5 text-white tracking-wider">For You</h4>
+              <ul className="space-y-4 text-sm">
+                <FooterLink>Privacy Policy</FooterLink>
+                <FooterLink>Terms of Use</FooterLink>
+                <FooterLink>Report Fraud</FooterLink>
+                <FooterLink>Apps</FooterLink>
+              </ul>
             </div>
           </div>
 
-          {/* About Tabsye */}
-          <div className="text-left">
-            <h4 className="font-semibold mb-2">About Tabsye</h4>
-            <ul className="space-y-1">
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>About Us</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Contact Us</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Careers</button>
-              </li>
-              <li>
-                <a
-                  href="https://blog.tabsye.com"
-                  target="_blank"
-                  className="hover:underline text-left"
-                >
-                  Blog
-                </a>
-              </li>
-            </ul>
+          {/* Bottom Bar */}
+          <div className="py-6 border-t border-white/10 text-center">
+            <p className="text-xs text-gray-500">
+              &copy; {new Date().getFullYear()} Tabsye Technologies Pvt. Ltd. All Rights Reserved.
+            </p>
           </div>
 
-          {/* Restaurant Partners */}
-          <div className="text-left">
-            <h4 className="font-semibold mb-2">For Restaurants</h4>
-            <ul className="space-y-1">
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Register Your Restaurant</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Terms & Conditions</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Privacy Policy</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Apps For You</button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Customers */}
-          <div className="text-left">
-            <h4 className="font-semibold mb-2">For Customers</h4>
-            <ul className="space-y-1">
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Report Fraud</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Terms & Conditions</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Privacy Policy</button>
-              </li>
-              <li>
-                <button className="hover:underline bg-transparent border-none outline-none cursor-pointer p-0 m-0 text-left" onClick={() => setShowComingSoon(true)}>Apps For You</button>
-              </li>
-            </ul>
-          </div>
-
-          
         </div>
-      </div>
-
-      <div className="text-center py-4 text-xs text-gray-400 border-t">
-        &copy; {new Date().getFullYear()} Tabsye. All rights reserved.
-      </div>
-      {showComingSoon && (
-        <ComingSoonCard onClose={() => setShowComingSoon(false)} />
-      )}
-    </footer>
+      </footer>
+    </>
   );
 }
