@@ -18,7 +18,7 @@ export default function ComingSoonCard({ onClose }: { onClose: () => void }) {
         </div>
         <h2 className="text-2xl font-bold text-white mb-3">Coming Soon!</h2>
         <p className="text-gray-300 text-base mb-2">This feature is under construction.</p>
-        <p className="text-gray-400 text-sm">We're working hard to bring you something amazing. Stay tuned!</p>
+        <p className="text-gray-400 text-sm">We&apos;re working hard to bring you something amazing. Stay tuned!</p>
       </div>
     </div>
   );

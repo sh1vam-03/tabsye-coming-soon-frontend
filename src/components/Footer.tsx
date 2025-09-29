@@ -9,6 +9,7 @@ import { useTheme } from 'next-themes';
 export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => void }) {
   const { resolvedTheme } = useTheme();
 
+
   const FooterLink = ({ children, href }: { children: React.ReactNode; href?: string }) => (
     <li>
       {href ? (
