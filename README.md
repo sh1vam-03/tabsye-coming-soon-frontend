@@ -1,38 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tabsye – Official Coming Soon Page 🚀
 
-## Getting Started
+Welcome to the official **Coming Soon Page repository** for **Tabsye**, an upcoming SaaS platform designed to simplify and empower digital experiences for businesses.  
 
-First, run the development server:
+This repository contains the source code for the landing page and waitlist system that will be used prior to the full launch of Tabsye.
 
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 📌 Overview
+The **Coming Soon Page** serves as the first point of interaction between Tabsye and its early users.  
+Its primary purpose is to:
+- Introduce Tabsye with a clean and minimal landing page.
+- Collect **email addresses and mobile numbers** from interested users.
+- Store waitlist information securely for product launch updates.
 
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## ✨ Features
+- **Responsive Design:** Mobile-first, modern UI.  
+- **Waitlist Form:** Collects user details (email + mobile).  
+- **Secure Data Handling:** User data stored in a MongoDB database via Mongoose.  
+- **Separation of Concerns:** Independent **frontend** and **backend** repositories for better maintainability.  
+- **Production Ready:** Built with industry best practices for deployment.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠 Tech Stack
+- **Frontend:** Next.js / React, Tailwind CSS  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB with Mongoose ODM  
+- **Deployment (Planned):** Vercel / Render / MongoDB (depending on environment)
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 📂 Repository Structure
+This project is maintained in **two separate repositories**:  
+1. **Frontend Repository** – Coming Soon page UI.  
+2. **Backend Repository** – API + database integration for collecting waitlist data.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## ⚠️ Legal & Usage Terms
+- This project is **proprietary software** developed by **Tabsye**.  
+- **No open-source license is provided** with this repository.  
+- All rights are reserved.  
+- **You are not permitted** to copy, modify, distribute, or use any part of this codebase without prior written consent from the Tabsye team.  
 
-## Deploy on Vercel
+By accessing this repository, you acknowledge that the contents are the intellectual property of **Tabsye** and are protected under applicable copyright laws.  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🤝 Contributions
+At this stage, this project is **not open to public contributions**.  
+All development and updates are handled internally by the Tabsye team.  
+
+---
+
+## 📬 Contact
+For business inquiries, partnerships, or support, please reach out:  
+
+**Team Tabsye**  
+📧 [Contact](https://sh1vam-03.github.io/portfolio/#contact)
+|
+🌐 [https://tabsye.com](https://tabsye.com)  
+
+---
+
+© 2025 **Tabsye**. All rights reserved. Unauthorized use is strictly prohibited.
