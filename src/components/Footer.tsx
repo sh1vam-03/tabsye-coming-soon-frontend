@@ -4,11 +4,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
-import ComingSoonCard from './ComingSoonCard';
-import { useState } from 'react';
 
 export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => void }) {
-    const [showComingSoon, setShowComingSoon] = useState(false);
 
 
   const FooterLink = ({ children, href }: { children: React.ReactNode; href?: string }) => (
