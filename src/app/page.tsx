@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { Bell, Clock, Sparkles, Monitor, IndentIncrease, Eye, Rocket, Star, Users, Zap, Shield, Heart, ChefHat, CalendarDays, Timer, Gift } from "lucide-react";
 import Link from "next/link";
 import NotificationModal from '@/components/NotificationModal';
+import ComingSoonCard from "@/components/ComingSoonCard";
 import { getWaitlistCount } from '@/utils/waitlist';
 
 export default function ComingSoon() {
@@ -16,6 +17,7 @@ export default function ComingSoon() {
   const [error, setError] = useState<string | null>(null);
   const [subscriberCount, setSubscriberCount] = useState<number>(0);
   const [showNotifyModal, setShowNotifyModal] = useState(false);
+  const [showComingSoon, setShowComingSoon] = useState(false);
 
   function getTimeLeft() {
     const target = new Date('2026-02-01T00:00:00+05:30');
@@ -66,7 +68,7 @@ export default function ComingSoon() {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-white">
-      <Header onWaitlistClick={() => setShowNotifyModal(true)} />
+      <Header onWaitlistClick={() => setShowNotifyModal(true)} onLinkClick={() => setShowComingSoon(true)} />
       
       <NotificationModal
         open={showNotifyModal}
@@ -84,6 +86,8 @@ export default function ComingSoon() {
         setIsSubscribed={setIsSubscribed}
         setSubscriberCount={setSubscriberCount}
       />
+
+      {showComingSoon && <ComingSoonCard onClose={() => setShowComingSoon(false)} />}
 
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-8 sm:py-12 md:py-16 mt-14 sm:mt-16 md:mt-20">
         <div className="w-full max-w-4xl">
@@ -330,7 +334,7 @@ export default function ComingSoon() {
         </div>
       </main>
 
-      <Footer onWaitlistClick={() => setShowNotifyModal(true)} />
+      <Footer onWaitlistClick={() => setShowNotifyModal(true)} onLinkClick={() => setShowComingSoon(true)} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import { FaLinkedin, FaInstagram } from 'react-icons/fa';
 import { ArrowRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
-export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => void }) {
+export default function Footer({ onWaitlistClick, onLinkClick }: { onWaitlistClick: () => void, onLinkClick: () => void }) {
   const { resolvedTheme } = useTheme();
 
 
@@ -17,7 +17,7 @@ export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => voi
           {children}
         </a>
       ) : (
-        <button onClick={onWaitlistClick} className="hover:text-gray-900 dark:hover:text-white transition-colors duration-300 text-left w-full">
+        <button onClick={onLinkClick} className="hover:text-gray-900 dark:hover:text-white transition-colors duration-300 text-left w-full">
           {children}
         </button>
       )}
@@ -41,9 +41,9 @@ export default function Footer({ onWaitlistClick }: { onWaitlistClick: () => voi
               </button>
           </div>
 
-          <div className="py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+          <div className="py-16 grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-10">
             
-            <div className="sm:col-span-2 md:col-span-1 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <div className="col-span-2 sm:col-span-2 md:col-span-1 flex flex-col items-center sm:items-start text-center sm:text-left">
               <Link href="/" className="inline-block mb-4">
                 <Image 
                   src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}

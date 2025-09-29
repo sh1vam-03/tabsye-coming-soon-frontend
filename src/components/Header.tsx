@@ -6,7 +6,7 @@ import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "./ThemeToggle";
 import { useTheme } from "next-themes";
 
-export default function Header({ onWaitlistClick }: { onWaitlistClick: () => void }) {
+export default function Header({ onWaitlistClick, onLinkClick }: { onWaitlistClick: () => void, onLinkClick: () => void }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { resolvedTheme } = useTheme();
 
@@ -55,7 +55,7 @@ export default function Header({ onWaitlistClick }: { onWaitlistClick: () => voi
           
           <nav className="flex items-center gap-6 text-sm">
             {navLinks.map((link) => (
-              <button key={link} onClick={onWaitlistClick} className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
+              <button key={link} onClick={onLinkClick} className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
                 {link}
               </button>
             ))}
@@ -100,7 +100,7 @@ export default function Header({ onWaitlistClick }: { onWaitlistClick: () => voi
             </div>
             <nav className="flex flex-col gap-5 text-center">
               {navLinks.map((link) => (
-                <button key={link} onClick={onWaitlistClick} className="text-gray-700 dark:text-gray-200 text-lg font-medium hover:text-purple-500 dark:hover:text-purple-400 transition-colors">
+                <button key={link} onClick={onLinkClick} className="text-gray-700 dark:text-gray-200 text-lg font-medium hover:text-purple-500 dark:hover:text-purple-400 transition-colors">
                   {link}
                 </button>
               ))}
