@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import { useState, useEffect } from "react";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -364,7 +364,7 @@ export default function ComingSoon() {
         </div>
       </main>
 
-      <Footer />
+      <Footer onWaitlistClick={() => setShowNotifyModal(true)} />
     </div>
   );
 }
