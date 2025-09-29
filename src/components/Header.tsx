@@ -40,8 +40,8 @@ export default function Header({ onWaitlistClick }: { onWaitlistClick: () => voi
         </div>
 
         {/* Desktop View */}
-        <div className="hidden sm:flex items-center justify-between">
-          <div className="flex items-center gap-8">
+        <div className="hidden sm:flex items-center">
+          <div className="flex-1 flex items-center">
             <Link href="/">
               <Image
                 src={resolvedTheme === 'dark' ? "/w_logo.svg" : "/logo.svg"}
@@ -51,16 +51,17 @@ export default function Header({ onWaitlistClick }: { onWaitlistClick: () => voi
                 className="h-7 w-auto"
               />
             </Link>
-            <nav className="flex items-center gap-6 text-sm">
-              {navLinks.map((link) => (
-                <button key={link} onClick={onWaitlistClick} className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
-                  {link}
-                </button>
-              ))}
-            </nav>
           </div>
+          
+          <nav className="flex items-center gap-6 text-sm">
+            {navLinks.map((link) => (
+              <button key={link} onClick={onWaitlistClick} className="text-gray-600 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
+                {link}
+              </button>
+            ))}
+          </nav>
 
-          <div className="flex items-center gap-4">
+          <div className="flex-1 flex items-center justify-end gap-4">
             <button
               onClick={onWaitlistClick}
               className="px-4 py-2 rounded-lg font-semibold text-white text-sm bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 shadow-lg transition-all transform hover:scale-105 active:scale-95"
