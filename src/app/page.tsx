@@ -137,7 +137,7 @@ export default function ComingSoon() {
               </h1>
               
               <p className="text-base sm:text-lg text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto">
-                We're building something revolutionary for restaurants and hotels.
+                We&apos;re building something revolutionary for restaurants and hotels.
                 Get ready for a smarter way to manage your hospitality business.
               </p>
 
@@ -178,7 +178,7 @@ export default function ComingSoon() {
               {/* Displays a success message after the user subscribes */}
               {isSubscribed && (
                 <div className="bg-green-900/50 text-green-300 p-2.5 sm:p-3 rounded-lg max-w-md mx-auto mb-4 sm:mb-6 text-sm sm:text-base">
-                  Thank you! We'll notify you when we launch.
+                  Thank you! We&apos;ll notify you when we launch.
                 </div>
               )}
             </div>
@@ -239,7 +239,7 @@ export default function ComingSoon() {
               
               <div className="p-4 sm:p-6">
                 <p className="text-sm sm:text-base text-gray-400 text-center mb-6 max-w-lg mx-auto">
-                  We're revolutionizing how restaurants and hotels operate with intuitive technology designed for the modern hospitality industry
+                  We&apos;re revolutionizing how restaurants and hotels operate with intuitive technology designed for the modern hospitality industry
                 </p>
                 
                 {/* First row of feature cards */}
