@@ -97,7 +97,7 @@ export default function Footer({ onWaitlistClick, onLinkClick }: { onWaitlistCli
 
           <div className="py-6 border-t border-black/5 dark:border-white/10 text-center">
             <p className="text-xs text-gray-500 dark:text-gray-500">
-              &copy; {new Date().getFullYear()} Tabsye Technologies Pvt. Ltd. All Rights Reserved.
+              &copy; {new Date().getFullYear()} Tabsye All Rights Reserved.
             </p>
           </div>
 
