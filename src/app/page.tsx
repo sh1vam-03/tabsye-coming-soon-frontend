@@ -20,7 +20,7 @@ export default function ComingSoon() {
   const [showComingSoon, setShowComingSoon] = useState(false);
 
   function getTimeLeft() {
-    const target = new Date('2026-02-01T00:00:00+05:30');
+    const target = new Date('2026-03-01T00:00:00+05:30');
     const now = new Date();
     const diff = target.getTime() - now.getTime();
     
